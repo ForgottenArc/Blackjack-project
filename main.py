@@ -1,4 +1,5 @@
 
+
 import art
 import random
 
@@ -29,6 +30,10 @@ def calculate_score(cards):
 
     return sum(cards)
 
+play = True
+
+
+
 user_result = calculate_score(user_cards)
 bot_result = calculate_score(computer_cards)
 
@@ -41,29 +46,51 @@ if user_result == 0:
     exit()
 
 if user_result == 21:
-    print(f"User win with the result of {user_result}")
+    print(f"User win with the result of {user_result} and Bot has {bot_result}")
     exit()
 
 if bot_result == 21 :
-    print(f"bot win with the result of {bot_result}")
+    print(f"bot win with the result of {bot_result} and User has {user_result}")
     exit()
 
-if user_result < 21 and bot_result < 21:
-
-    if user_result == bot_result :
-        print(f"Tied with the result of {user_result}")
 
 
-    elif user_result > bot_result:
-        print(f"User wins with the result of : {user_result} and Bot has {bot_result}")
+while play:
 
-    elif bot_result > user_result :
-        print(f"Bot win with the result of : {bot_result} and User has {user_result}")
+    print(f"Your current result is {user_result}")
+    another_card = input("Do you want to add another card? y/n").lower()
 
-else:
-    print("Busted!!!!")
+    if another_card == "n":
+        if user_result < 21 and bot_result < 21:
+
+            if user_result == bot_result :
+                print(f"Tied with the result of {user_result}")
+                play = False
 
 
+            elif user_result > bot_result:
+                print(f"User wins with the result of : {user_result}")
+                play = False
 
+
+            elif bot_result > user_result :
+                print(f"Bot win with the result of : {bot_result}")
+                play = False
+
+        elif user_result > 21:
+            print(f"User busted with the result of {user_result}")
+            play = False
+
+        else:
+            print(f"Bot busted with the result of {bot_result}")
+            play = False
+
+    else:
+        user_cards.append(deal_card(cards))
+        print(f"The result is {user_result}")
+        user_result = calculate_score(user_cards)
+        if user_result >21 :
+            print(f"User Busted with the result of {user_result}")
+            play = False
 
 
